@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -28,7 +30,9 @@ import {
   DEFAULT_EVENT_DURATION_MS,
   FC_TO_VIEW,
   VIEW_OPTIONS,
+  VIEW_OPTIONS_WITHOUT_WEEK,
   VIEW_TO_FC,
+  WEEK_VIEW_MIN_WIDTH,
 } from "../utils/calendarViews";
 
 const initFormValues = (
@@ -45,10 +49,17 @@ const initFormValues = (
 });
 
 const CalendarPage = () => {
+  const theme = useTheme();
+  const isCompact = useMediaQuery(theme.breakpoints.down("md"));
+  const canFitWeekView = useMediaQuery(`(min-width:${WEEK_VIEW_MIN_WIDTH}px)`);
   const calendarRef = useRef<FullCalendar>(null);
   const { events, addEvent, updateEvent, deleteEvent } = useEvents();
 
-  const [view, setView] = useState<CalendarViewKey>("month");
+  const [view, setView] = useState<CalendarViewKey>(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width:899px)").matches
+      ? "day"
+      : "month",
+  );
   const [title, setTitle] = useState("");
   const [highlightToday, setHighlightToday] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -62,6 +73,14 @@ const CalendarPage = () => {
 
   const getCalendarApi = () => calendarRef.current?.getApi();
 
+  const viewOptions = canFitWeekView ? VIEW_OPTIONS : VIEW_OPTIONS_WITHOUT_WEEK;
+
+  useEffect(() => {
+    if (!canFitWeekView && view === "week") {
+      setView("day");
+      getCalendarApi()?.changeView(VIEW_TO_FC.day);
+    }
+  }, [canFitWeekView, view]);
 
   const fcEvents: EventInput[] = events.map((event) => ({
     id: event.id,
@@ -182,19 +201,30 @@ const CalendarPage = () => {
           opacity: 1,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "stretch", md: "center" },
+            justifyContent: "space-between",
+            mb: 2,
+            gap: { xs: 1.5, md: 0 },
+          }}
+        >
           <Typography sx={{ fontSize: 18, color: "text.primary" }}>
             Calendar View
           </Typography>
-          <SegmentedControl
-            items={VIEW_OPTIONS.map((option) => ({
-              key: option.key,
-              label: option.label,
-              onClick: () => handleViewChange(option.key),
-            }))}
-            activeKey={view}
-            variant="view"
-          />
+          <Box sx={{ width: { xs: "100%", md: "auto" }, overflowX: { xs: "auto", md: "visible" } }}>
+            <SegmentedControl
+              items={viewOptions.map((option) => ({
+                key: option.key,
+                label: option.label,
+                onClick: () => handleViewChange(option.key),
+              }))}
+              activeKey={view}
+              variant="view"
+            />
+          </Box>
         </Box>
 
 
@@ -243,13 +273,15 @@ const CalendarPage = () => {
               const nowHour = new Date().getHours();
               return nowHour >= slotHour && nowHour < slotHour + 2 ? ["fc-slot-now"] : [];
             }}
-            dayHeaderContent={(arg) =>
-              arg.view.type === "dayGridMonth"
-                ? arg.text
-                : `${arg.date.toLocaleDateString("en-US", { weekday: "short" })} ${String(
-                  arg.date.getDate(),
-                ).padStart(2, "0")}/${String(arg.date.getMonth() + 1).padStart(2, "0")}`
-            }
+            dayHeaderContent={(arg) => {
+              if (arg.view.type === "dayGridMonth") return arg.text;
+              if (isCompact && arg.view.type === "timeGridWeek") {
+                return String(arg.date.getDate()).padStart(2, "0");
+              }
+              return `${arg.date.toLocaleDateString("en-US", { weekday: "short" })} ${String(
+                arg.date.getDate(),
+              ).padStart(2, "0")}/${String(arg.date.getMonth() + 1).padStart(2, "0")}`;
+            }}
             titleRangeSeparator=" - "
             views={{
               timeGridWeek: {

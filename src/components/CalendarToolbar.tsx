@@ -25,7 +25,9 @@ const CalendarToolbar = ({ title, onToday, onPrev, onNext }: CalendarToolbarProp
       sx={{
         position: "relative",
         display: "flex",
-        alignItems: "center",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: { xs: "flex-start", md: "center" },
+        gap: { xs: 1, md: 0 },
         mb: 2.5,
       }}
     >
@@ -38,13 +40,14 @@ const CalendarToolbar = ({ title, onToday, onPrev, onNext }: CalendarToolbarProp
 
       <Typography
         sx={{
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontSize: 18,
+          position: { xs: "static", md: "absolute" },
+          left: { md: "50%" },
+          transform: { md: "translateX(-50%)" },
+          fontSize: { xs: 16, md: 18 },
           color: "text.primary",
-          textAlign: "center",
+          textAlign: { xs: "left", md: "center" },
           pointerEvents: "none",
+          width: { xs: "100%", md: "auto" },
         }}
       >
         {title}

@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
-import { HEADER_HEIGHT, SIDEBAR_WIDTH } from "../theme";
+import { HEADER_HEIGHT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED } from "../theme";
 import { NAV_ITEMS } from "../constants/navItems";
 
 const Sidebar = () => {
@@ -15,13 +15,13 @@ const Sidebar = () => {
     <Drawer
       variant="permanent"
       sx={{
-        width: SIDEBAR_WIDTH,
+        width: { xs: SIDEBAR_WIDTH_COLLAPSED, md: SIDEBAR_WIDTH },
         flexShrink: 0,
       }}
       slotProps={{
         paper: {
           sx: {
-            width: SIDEBAR_WIDTH,
+            width: { xs: SIDEBAR_WIDTH_COLLAPSED, md: SIDEBAR_WIDTH },
             boxSizing: "border-box",
             border: "none",
             color: "surface",
@@ -35,7 +35,8 @@ const Sidebar = () => {
           height: HEADER_HEIGHT,
           display: "flex",
           alignItems: "center",
-          px: "20px",
+          px: { xs: 0, md: "20px" },
+          justifyContent: { xs: "center", md: "flex-start" },
           py: 3,
           boxShadow: "0px 2px 6px #0000000A",
           backgroundColor: "sidebarDark",
@@ -47,6 +48,7 @@ const Sidebar = () => {
             letterSpacing: 3,
             fontSize: 15,
             color: "surface",
+            display: { xs: "none", md: "block" },
           }}
         >
           IMPEKABLE
@@ -64,8 +66,9 @@ const Sidebar = () => {
                 end={item.path === "/"}
                 sx={{
                   py: "18px",
-                  px: "26px",
+                  px: { xs: 0, md: "26px" },
                   gap: "15px",
+                  justifyContent: { xs: "center", md: "flex-start" },
                   color: "sidebarTextMuted",
                   "&:hover, &:focus-visible": {
                     backgroundColor: "sidebarHoverBg",
@@ -77,7 +80,7 @@ const Sidebar = () => {
                     backgroundColor: "sidebarActiveBg",
                     borderLeft: "5px solid",
                     borderColor: "sidebarActive",
-                    pl: "21px",
+                    pl: { xs: 0, md: "21px" },
                     "& .MuiListItemIcon-root": { color: "sidebarActive" },
                   },
                 }}
@@ -87,6 +90,7 @@ const Sidebar = () => {
                 </ListItemIcon>
                 <ListItemText
                   primary={item.label}
+                  sx={{ display: { xs: "none", md: "block" } }}
                   slotProps={{ primary: { sx: { fontSize: 15, color: "surface" } } }}
                 />
               </ListItemButton>

@@ -22,3 +22,9 @@ export const VIEW_OPTIONS: CalendarViewOption[] = [
   { key: "day", label: "Day" },
   { key: "agenda", label: "Agenda" },
 ];
+
+export const WEEK_VIEW_MIN_WIDTH = 600;
+
+export const VIEW_OPTIONS_WITHOUT_WEEK: CalendarViewOption[] = VIEW_OPTIONS.filter(
+  (option) => option.key !== "week",
+);

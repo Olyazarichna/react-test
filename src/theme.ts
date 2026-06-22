@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
 export const SIDEBAR_WIDTH = 260;
+export const SIDEBAR_WIDTH_COLLAPSED = 72;
 export const HEADER_HEIGHT = 70;
 
 declare module "@mui/material/styles" {

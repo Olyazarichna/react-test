@@ -53,6 +53,37 @@
   font-size: 11px;
 }
 
+@media (max-width: 899px) {
+  .fc-dayGridMonth-view .fc-col-header-cell {
+    padding: 8px 2px;
+  }
+
+  .fc-dayGridMonth-view .fc-col-header-cell-cushion {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+
+  .fc-timeGridDay-view .fc-col-header-cell-cushion {
+    font-size: 10px;
+  }
+
+  .fc .fc-timegrid-axis-cushion,
+  .fc .fc-timegrid-slot-label-cushion {
+    font-size: 11px;
+    padding: 0 4px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .fc-timeGridWeek-view .fc-col-header-cell {
+    padding: 8px 2px;
+  }
+
+  .fc-timeGridWeek-view .fc-col-header-cell-cushion {
+    font-size: 10px;
+  }
+}
+
 /* label current-hour time*/
 .fc .fc-timegrid-slot-label.fc-slot-now .fc-timegrid-slot-label-cushion {
   color: var(--calendar-slot-label);

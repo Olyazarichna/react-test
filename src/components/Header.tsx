@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
-import { HEADER_HEIGHT, SIDEBAR_WIDTH } from "../theme";
+import { HEADER_HEIGHT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED } from "../theme";
 import SearchIcon from "../assets/icons/search.svg?react";
 import HelpCenterIcon from "../assets/icons/help-center.svg?react";
 import ChatIcon from "../assets/icons/chat.svg?react";
@@ -21,8 +21,11 @@ const Header = () => {
       elevation={0}
       sx={{
         top: 0,
-        left: `${SIDEBAR_WIDTH}px`,
-        width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
+        left: { xs: `${SIDEBAR_WIDTH_COLLAPSED}px`, md: `${SIDEBAR_WIDTH}px` },
+        width: {
+          xs: `calc(100% - ${SIDEBAR_WIDTH_COLLAPSED}px)`,
+          md: `calc(100% - ${SIDEBAR_WIDTH}px)`,
+        },
         height: `${HEADER_HEIGHT}px`,
         backgroundColor: "surface",
         color: "text.primary",
@@ -35,18 +38,21 @@ const Header = () => {
           minHeight: `${HEADER_HEIGHT}px`,
           height: `${HEADER_HEIGHT}px`,
           justifyContent: "space-between",
+          px: { xs: 1.5, md: 3 },
+          gap: 1,
         }}
       >
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             alignItems: "center",
             gap: 1,
             color: "text.secondary",
             flexGrow: 1,
+            minWidth: 0,
           }}
         >
-          <Box sx={{ color: "icon", display: "flex" }}>
+          <Box sx={{ color: "icon", display: "flex", flexShrink: 0 }}>
             <SearchIcon width={18} height={18} />
           </Box>
           <InputBase
@@ -55,7 +61,16 @@ const Header = () => {
           />
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <Box sx={{ display: { xs: "flex", md: "none" }, flexGrow: 1 }} />
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: { xs: 1.5, md: 4 },
+            flexShrink: 0,
+          }}
+        >
           <IconButton sx={{ color: "icon", padding: 0 }}>
             <HelpCenterIcon width={16} height={16} />
           </IconButton>
@@ -86,13 +101,28 @@ const Header = () => {
             sx={{ height: 28, width: "1px", backgroundColor: "borderDivider" }}
           />
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography sx={{ fontSize: 13, marginRight: "15px" }}>John Doe</Typography>
-            <Box sx={{ color: "icon", display: "flex", marginRight: "10px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+            <Typography
+              sx={{
+                fontSize: 13,
+                marginRight: "15px",
+                display: { xs: "none", md: "block" },
+                whiteSpace: "nowrap",
+              }}
+            >
+              John Doe
+            </Typography>
+            <Box
+              sx={{
+                color: "icon",
+                display: { xs: "none", md: "flex" },
+                marginRight: "10px",
+              }}
+            >
               <ArrowDownIcon width={11} height={7} />
             </Box>
             <Avatar
-              sx={{ width: 38, height: 38 }}
+              sx={{ width: { xs: 34, md: 38 }, height: { xs: 34, md: 38 } }}
               src="https://i.pravatar.cc/100?img=12"
               alt="John Doe"
             />
