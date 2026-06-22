@@ -1,0 +1,220 @@
+.fc {
+  --fc-border-color: #EAF0F4;
+  --fc-today-bg-color: #F5F6FA;
+  --fc-now-indicator-color: #3B86FF;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: #fafbfc;
+  --calendar-header-bg: #F5F6FA;
+  --calendar-text: #2e3a59;
+  --calendar-header-text: #A3A6B4;
+  --calendar-day-number: #43425D;
+  --calendar-today-highlight: #e8f1ff;
+  --calendar-grid-border: #eceef2;
+  --calendar-list-bg: #fafbfc;
+  --calendar-list-hover: #f7f9fc;
+  --calendar-slot-label: #4D4F5C;
+  --calendar-event-text: #fff;
+
+  font-family: "Source Sans Pro", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 13px;
+  color: var(--calendar-text);
+}
+
+/* Days in Month view (SUN, MON) */
+.fc .fc-col-header-cell {
+  background-color: var(--calendar-header-bg);
+  padding: 16px;
+  border-left: none;
+  border-right: none;
+}
+
+/* Divider around header*/
+.fc .fc-col-header,
+.fc .fc-col-header tr,
+.fc .fc-scrollgrid-section-header>td {
+  border: none;
+}
+
+/* collumn header text*/
+.fc .fc-col-header-cell-cushion {
+  color: var(--calendar-header-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Week/day (time-grid) views:*/
+.fc-timeGridWeek-view .fc-col-header-cell-cushion,
+.fc-timeGridDay-view .fc-col-header-cell-cushion {
+  color: var(--calendar-header-text);
+  text-transform: none;
+  font-size: 11px;
+}
+
+/* label current-hour time*/
+.fc .fc-timegrid-slot-label.fc-slot-now .fc-timegrid-slot-label-cushion {
+  color: var(--calendar-slot-label);
+  font-weight: 700;
+}
+
+/* arrow indicator*/
+.fc .fc-timegrid-now-indicator-arrow {
+  display: none;
+}
+
+/* now-indicator arrow  */
+.fc .fc-scrollgrid-section-header .fc-timegrid-axis {
+  background-color: var(--calendar-header-bg);
+  border-right: none;
+}
+
+/* Month view  */
+.fc-dayGridMonth-view .fc-daygrid-day-frame {
+  min-height: 135px;
+}
+
+/* day*/
+.fc .fc-daygrid-day-number {
+  color: var(--calendar-day-number);
+  font-size: 15px;
+  padding: 17px 15px 0 2px;
+  text-decoration: none;
+}
+
+/* today cell  highlight*/
+.today-highlight .fc .fc-day-today {
+  background-color: var(--calendar-today-highlight) !important;
+}
+
+.fc .fc-daygrid-event,
+.fc .fc-timegrid-event {
+  border: none;
+  border-radius: 0;
+  padding: 2px 14px;
+  font-size: 13px;
+  box-shadow: none;
+}
+
+/* Month view */
+.fc .fc-daygrid-event {
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  margin: 2px 4px;
+}
+
+/* Week view  */
+.fc-timeGridWeek-view .fc-timegrid-event {
+  border-radius: 4px;
+}
+
+/* Month view  */
+.fc-dayGridMonth-view .fc-daygrid-event {
+  border-radius: 4px;
+}
+
+/* Day view - events */
+.fc-timeGridDay-view .fc-timegrid-event-harness:has(.fc-event-solo) {
+  inset-inline: 0 !important;
+}
+
+.fc-timeGridDay-view .fc-timegrid-event.fc-event-solo {
+  min-height: 50px;
+}
+
+.fc-timeGridDay-view .fc-timegrid-col-events {
+  margin: 0 !important;
+}
+
+.fc-timeGridWeek-view .fc-timegrid-event .fc-event-main,
+.fc-timeGridDay-view .fc-timegrid-event .fc-event-main {
+  display: flex;
+  align-items: center;
+}
+
+.fc .fc-event-title,
+.fc .fc-event-time {
+  color: var(--calendar-event-text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc .fc-daygrid-event .fc-event-time {
+  display: none;
+}
+
+.fc-event {
+  cursor: pointer;
+}
+
+/* row height  week/day  */
+.fc .fc-timegrid-slot {
+  height: 50px;
+}
+
+/* hour label */
+.fc .fc-timegrid-slot-label-cushion,
+.fc .fc-timegrid-axis-cushion {
+  color: var(--calendar-slot-label);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+/* all-day */
+.fc .fc-timegrid-axis-cushion {
+  text-transform: none;
+}
+
+.fc-direction-ltr .fc-timegrid-slot-label-frame {
+  text-align: center;
+}
+
+/*  all-day  */
+.fc .fc-timegrid-axis-frame {
+  justify-content: center;
+}
+
+/* Agenda  view */
+.fc .fc-list {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* header day */
+.fc .fc-list-day-cushion {
+  background-color: var(--calendar-list-bg);
+  color: var(--calendar-text);
+  font-weight: 600;
+}
+
+.fc .fc-list-event:hover td {
+  background-color: var(--calendar-list-hover);
+}
+
+/* agenda */
+.fc .fc-list-event-dot {
+  border-width: 6px;
+}
+
+.fc .fc-list-event-title,
+.fc .fc-list-event-time {
+  color: var(--calendar-text);
+  font-size: 13px;
+}
+
+.fc .fc-scrollgrid {
+  border-radius: 4px;
+}
+
+.fc table {
+  border-color: var(--calendar-grid-border);
+}
+
+/* divider all day*/
+.fc .fc-timegrid-divider {
+  display: none;
+}
