@@ -4,6 +4,6 @@ import svgr from 'vite-plugin-svgr'
 
 
 export default defineConfig({
-  base: './',
+  base: "/react-test/",
   plugins: [react(), svgr()],
 })
